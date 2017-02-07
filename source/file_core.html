@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0079)http://121.128.138.133:8080/mcard/file_core.php?ecard=hongna&cat=guest&flimit=1 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>청첩장 보자기카드 - m청첩장</title>
+
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="./mobile.css">
+<link rel="stylesheet" href="./jquery-ui.css" type="text/css">
+<script language="javascript" type="text/javascript" src="./jquery-1.7.1.min.js(1).다운로드"></script>
+<script language="javascript" type="text/javascript" src="./jquery.ui.1.8.18.all.min.js(1).다운로드"></script>
+<script language="javascript" type="text/javascript" src="./jquery.cookie.js(1).다운로드"></script>
+<script language="javascript" type="text/javascript" src="./swipe.js(1).다운로드"></script>
+
+
+	<script>
+	// auto image size
+	if(navigator.userAgent.indexOf("Mobile") != -1) var Mobile=1
+	var nw=0
+	var nh=0
+	nw = Number(document.documentElement.clientWidth)
+	nh = Number(document.documentElement.clientHeight)
+	var screen_ratio = nw/320
+	var whrate = nw/nh
+
+	$(function(){
+
+			if(whrate < 1.5) {
+					$(".low_whrate_is").show()
+					$(".low_whrate_no").hide()
+			}
+
+
+			$(".fits").each(function(){
+
+					$(this).css("width",   Math.round(Number($(this).attr("width")*screen_ratio))  )
+					var h=Math.round(Number($(this).attr("height")*screen_ratio))
+					if($(this).attr("height")) $(this).css("height",  h  )
+					$("#sesnor_block").css("height",  h  )
+					$("#sesnor_block").attr("height",  h  )
+					$("#slideshow").css("height",  h  )
+
+			})
+	
+			
+
+	})
+	</script>
+
+
+	<style>
+		* {
+				-webkit-text-size-adjust:none; /* 아이폰 폰트 자동확대축소 방지 */
+				font-family:"Arial","Vernada","Apple Gothic"; /* 아이폰에서 안드로이드 기본고딕체와 가장 비슷한 글씨체 */
+		}
+		textarea { background-image:url('/e/img/dot_ababab.png'); font-size:9pt; border:1px;border-top:#dddddd;border-bottom:#dddddd; line-height:23px; overflow-x:hidden; overflow-y:auto; }
+		img { border:0; }
+		span { font-size:12px; color:#6b6b6b;  }
+		select { font-size:12px; }
+		input[type='text'], input[type='date'], input[type='password'], select { border:1px solid #f0f0f0; }
+		pre { font-size:12px; }
+		ul, li { margin:0px; border:0px; padding:0px; }
+		center { font-size:0px; }
+		.ui-effects-transfer { border: 2px solid gray;  } /* 샘플담기 효과  border: 4px dotted #4867aa; */
+		body { font-size:0px; overflow-x:hidden;  }
+		.skin_color { background-color:#ffd71b; color:#fff; }
+		.skin_001 { background-image:url('./img/_bg-01.gif'); color:#fff; }
+		.skin_002 { background-image:url('./img/_bg-02.gif'); color:#333; }
+		.skin_003 { background-image:url('./img/_bg-03.gif'); color:#fff; }
+		.title2 { color:#6b6b6b; font-size:14px; font-weight:bold; padding:10px; background-color:#f2f2f2; border-top:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4; }
+		.ch0 { font-size:14px; color:#6b6b6b; text-align:right; padding-right:10px; width:50px; }
+		.ch0, .cd0 { border-bottom:1px solid #efefef; }
+		.btn { cursor:pointer; }
+	</style>
+
+</head>
+<!-- head end -->
+
+
+
+<body>
+
+
+
+
+
+<script src="./jquery.form.js(1).다운로드"></script>
+<script>
+var file_cnt=0
+var file_seq=0
+var movie_cnt=0
+var identifer='558ae88e379dffabadfaa6d94d2593ad'
+
+$(document).ready(function(){
+		photo_category_select_reload()
+})
+
+function photo_category_select_reload(){
+		$("#photo_category").load("http://doltory.com/e/photo_category_data.php?USER_ID=hongna",function(){
+					if( $.cookie("mCatSave") )   $("select[name=category]").val($.cookie("mCatSave"))
+		})
+}
+
+function chkfrm(){
+
+	if(!$("#chk0").val()){
+		alert('분류를 선택하셔야 합니다.')
+		$("#chk0").focus()
+		return false
+	}
+	if(!$("input[name=subject]").val()){
+			alert('제목을 입력하셔야 합니다.')
+			$("input[name=subject]").focus()
+			return false
+	}
+	if(file_cnt==0){
+			alert('사진을 추가해주세요')
+			return false
+	}
+
+
+	$("#btn_submit").hide();
+	$("#btn_msg").html('사진을 업로드중입니다. 잠시만 기다려주세요.');
+
+
+	document.f.submit()
+
+
+}
+</script>
+ 
+<style>
+.uploaded     { height:40px; width:40px; }
+.uploaded_box { border:1px solid #efefef; margin-right:6px; float:left; font-size:0px; position:relative; width:40px; height:40px; }
+.uploaded_del { position:absolute; top:0px; right:0px; width:40px; height:40px; }
+.play_btn { position:absolute; top:9px; left:9px; width:20px; height:20px; }
+#file_add { float:left; width:42px; height:42px; }
+body { overflow:hidden; }
+
+
+
+
+</style>
+
+
+<form name="f" method="POST" enctype="multipart/form-data" style="border:1px solid #fff;height:0;padding:0;margin:0;line-height:0;" action="http://121.128.138.133:8080/mcard/photo_write_proc.php">
+<input type="hidden" name="idx" value="">
+<div id="uploaded" style="float:left;"></div>
+
+
+<div id="uploaded_inputs"></div>
+</form>
+
+
+<div id="size_error" onclick="$(this).hide()" style="display:none; position:absolute; height:30px; width:170px; font-size:12px; padding:10px; top:10px;left:10px; border:1px solid black; background-color:#fff; "> 동영상은 50초(약 50MB) 미만 길이로 올려주세요  </div>
+
+
+<script>
+$(function(){
+
+		var bar = $('.bar')
+		var percent = $('.percent')
+		var status = $('#status')
+		   
+
+
+
+		// 파일추가 버튼 (정사각) 클릭시
+		$(".pic_btns").on("click",function(event){
+
+
+								if(file_cnt > 1){  //파일제한:파일 업로드 버튼이 보이고, 클릭시 팝업안내
+						if(confirm('프리미엄 서비스로 업그레이드시\n추가로 파일을 등록할 수 있습니다.\n\n업그레이드 할까요?')) top.location.href='http://doltory.com/e/admin_ming_cash.php?premium_info_show=1'
+						return false;
+				}
+				
+				$("#file_choice").trigger(event)
+
+		})
+
+
+
+
+		// 파일입력 인풋값 변경시
+		$("#file_choice").on("change",function(){
+
+
+				// 체크: 확장자
+				var tmp=$(this).val().split(".")
+				var ext=tmp[(tmp.length-1)].toLowerCase()
+				if(ext !='jpg' && ext !='jpeg' && ext !='gif' && ext !='png' && ext !='mp4' && ext !='mov'){
+						alert('이미지 또는 동영상 파일을 업로드 해주세요')
+						return false
+				}
+
+
+				var fsize_limit = 50;
+				// 이미지는 10MB 까지만
+				if(ext =='jpg' || ext =='jpeg' || ext =='gif' || ext =='png'){
+						fsize_limit = 15;
+				}
+				
+
+				$("#photo_arrange_row").show()
+				$("#file_notice").hide()  //파일안내 숨기기
+
+				if(event_listener){  //이벤트 리스너 호환되는 브라우저는 파일메써드도 취급가능하다고 가정
+						var fsizeMB = this.files[0].size/1024/1024
+						if( fsizeMB > fsize_limit ){
+								//$("#size_error").show();
+								//$("#size_error").text(fsizeMB);
+								alert('파일크기는 '+fsize_limit+'MB 이하로 올려주세요' )
+								return false;
+						}
+				}
+
+				file_cnt++; // 파일갯수
+				file_seq++; // 파일번호
+
+				//photo_box_add(file_seq,'/jquery/images/loading.gif') // loading
+				$("#uploading").show()
+
+				$('#ff').submit() // 파일 전송
+
+
+		})
+
+
+
+
+		/* edit mode */
+
+		
+		/* edit mode */
+
+
+
+
+})
+</script>
+
+
+<script>
+
+function movie_add(file_time_array){  // 부모프레임의 장면선택 함수에게 배열전송
+
+		window.parent.postMessage(file_time_array,'*')
+
+}
+
+
+
+var event_listener = 1
+if(window.addEventListener){
+		window.addEventListener("message", message_recived, false)  //window.addEventListener("message", movie_frame_choosen, false)
+} else {  // eg, IE
+		event_listener = 0
+		window.attachEvent("onmessage", message_recived, false)
+}
+
+
+
+
+function message_recived(event){
+
+		var d = event.data
+		var a = d.split(",")
+		if(a[0] == "abort"){
+
+				var no = Number(a[1])+1
+				uploaded_del_noconfirm(no)
+
+		} else {
+
+				movie_frame_choosen(event)
+
+		}
+
+}
+
+
+function movie_frame_choosen(event){  // 사용자가 정지이미지 및 각도를 선택하면, 부모프레임이 이미지 url 을 여기로 보내줌
+
+		var tmp = event.data.split(',')
+		var fnm = tmp[0]
+		var deg = tmp[1]
+
+		// 확인이미지
+		$("#uploaded_"+file_seq).attr("src",fnm)  //요기 다름
+		$("#uploaded_"+file_seq).css({ "display":"block", "width":"40px", "height":"40px", "margin":"0px", "-webkit-transform":"rotate("+deg+"deg)" })
+		$("#uploaded_box_"+file_seq).html(
+				$("#uploaded_box_"+file_seq).html()
+				+'<img class=uploaded_del id=uploaded_del_'+file_seq+' no='+file_seq+' src=./img/000000_00_00.png onclick=uploaded_del('+file_seq+') />'
+				+'<img class=play_btn id=play_btn_'+file_seq+' no='+file_seq+' src=./img/131111_01_02.png onclick=uploaded_del('+file_seq+') />'  // 요기 다름
+				+'<img src=./img/131030_01_07.png width=18 style=position:absolute;top:0px;right:0px; onclick=uploaded_del('+file_seq+') alt=del  />'
+		)
+		// 폼 추가
+		$("#uploaded_inputs").append('<input type=hidden name=files[] value="'+fnm+'" no='+file_seq+' />')
+		uploaded_cnt_recount()
+
+}
+
+
+function photo_add(fnm){
+
+				window.parent.postMessage(fnm,'*')
+
+				// 확인이미지(아이콘사이즈)
+				var icon_file = fnm.replace(".jpg","_icon.jpg")
+				var tmpsrc='../ecard/guest/h/hongna/tmp/'+icon_file
+				$("#uploaded_"+file_seq).attr("src", tmpsrc )
+				$("#uploaded_"+file_seq).css({ "width":"40px", "height":"40px", "margin":"0px" })
+				$("#uploaded_box_"+file_seq).html(
+						$("#uploaded_box_"+file_seq).html()
+						+'<img class=uploaded_del id=uploaded_del_'+file_seq+' no='+file_seq+' src=./img/000000_00_00.png onclick=uploaded_del('+file_seq+') />'
+						+'<img src=./img/131030_01_07.png width=18 style=position:absolute;top:0px;right:0px; onclick=uploaded_del('+file_seq+') alt=del  />'
+				)
+				// 폼 추가
+				$("#uploaded_inputs").append('<input type=hidden name=files[] value="'+fnm+'" no='+file_seq+' />')
+				uploaded_cnt_recount()
+
+}
+
+function photo_box_add(file_seq,img_file){
+
+				if(img_file=='/jquery/images/loading.gif') img_file+=' style=width:20px;height:20px;margin:10px; '
+
+				$("#uploaded").html(
+						$("#uploaded").html()
+						+'<div class=uploaded_box id=uploaded_box_'+file_seq+' no='+file_seq+'>'
+						+'<img class=uploaded     id=uploaded_'+file_seq+'     no='+file_seq+' src='+img_file+'  />'
+						+'</div>'
+				)
+
+}
+
+
+function uploaded_cnt_recount(){
+
+		file_cnt=0
+		$("input[name^=files]").each(function(){
+				file_cnt++
+		})
+
+		if(file_cnt >= 1) $("#file_add").hide()  //파일제한:파일을 올리면 바로 버튼을 숨김
+		else {
+
+				if(event_listener) $("#file_add").show()  //이벤트 리스너 호환되는 브라우저만 정사각 버튼 재노출
+					
+		}
+
+		if(file_cnt > 1) {
+				$("#photo_arrange_row").show()  //사진정렬
+						}
+		else {
+				$("#photo_arrange_row").hide()
+				$("select[name=photo_arrange]").val('v')
+		}
+
+		return file_cnt
+
+}
+
+function uploaded_del(no){
+
+	if(confirm('업로드된 파일을 삭제할까요?')){
+
+		// 폼제거
+		$("input[name^=files]").each(function(){
+				if(no==$(this).attr("no")){
+						var fnm = $(this).val() // 파일이름 확보
+						$(this).remove()
+
+						var send_data = new Array();
+						send_data[0] = 'del'
+						send_data[1] = no
+						send_data[2] = fnm
+						window.parent.postMessage(send_data,'*')
+
+				}
+		})
+		
+		// 보이는이미지 제거
+		$(".uploaded_box").each(function(){
+				if(no==$(this).attr("no")){
+						$(this).remove()
+				}
+		})
+
+		// 서버파일 제거는 글 작성이후 안쓰는 임시저장소의 모든파일 제거로
+		uploaded_cnt_recount()
+
+	}
+
+
+}
+
+function uploaded_del_noconfirm(no){
+
+		// 폼제거
+		$("input[name^=files]").each(function(){
+				if(no==$(this).attr("no")){
+						var fnm = $(this).val() // 파일이름 확보
+						$(this).remove()
+
+						var send_data = new Array();
+						send_data[0] = 'del'
+						send_data[1] = no
+						send_data[2] = fnm
+						window.parent.postMessage(send_data,'*')
+
+				}
+		})
+		
+		// 보이는이미지 제거
+		$(".uploaded_box").each(function(){
+				if(no==$(this).attr("no")){
+						$(this).remove()
+				}
+		})
+
+		// 서버파일 제거는 글 작성이후 안쓰는 임시저장소의 모든파일 제거로
+		uploaded_cnt_recount()
+
+}
+</script>
+
+
+
+
+
+
+
+<!-- 사진 업로드 처리폼 (본체 폼의 밖에 있어야 함) -->
+<div style="display:relative; text-align:center;">
+
+		<form id="ff" name="ff" method="POST" enctype="multipart/form-data" action="http://121.128.138.133:8080/mcard/file_upload_ajax.php">
+				<input type="hidden" name="ecard" value="hongna">
+				<input type="hidden" name="cat" value="guest">
+				<input type="hidden" name="dol" value="">
+				<input id="file_choice" type="file" name="file" style="color:#fff;  width:70px;  top:0;  padding:0; border:0; ">
+		</form>
+
+</div>
+
+
+<div id="uploading" style="text-align:center; position:absolute; top:0; left:0; background-color:#ffffff; width:100%; height:30px; display:none; "><img src="./loading02.gif" width="20" height="20"></div>
+
+
+<div class="progress">
+    <div class="bar"></div>
+    <div class="percent">0%</div>
+</div>
+<div id="status" style="font-size:12px;"></div><!-- font-size:12px 반영시 보임 -->
+<!-- 사진 업로드 처리폼 (본체 폼의 밖에 있어야 함) -->
+</body></html>
